@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import pandas as pd
 import haversine as hs
 from haversine import Unit
@@ -10,16 +10,17 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/members")
 
+@app.route("/members")
 def members():
+    global user_input
     df = pd.read_csv('Hospital_Data.csv')
     df1 = pd.read_csv('Discharge_Data.csv')
     #cleaning first dataset
     discharge_to_hos = []
     curr = -1
     for i in df1.index:
-        if df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'VA' or df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'DC' or df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'MD':
+        if df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'VA' :#or df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'DC' or df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'MD':
             if i != 0 and (df1['Rndrng_Prvdr_Org_Name'][i-1] == df1['Rndrng_Prvdr_Org_Name'][i]):
                 discharge_to_hos[curr][1] = discharge_to_hos[curr][1] + \
                     df1["Tot_Dschrgs"][i]
@@ -46,7 +47,7 @@ def members():
     newData = []
     inp = 50
     for i in df.index:
-        if df['State'][i] == 'VA' or df['State'][i] == 'DC' or df['State'][i] == 'MD':
+        if df['State'][i] == 'VA' :#or df['State'][i] == 'DC' or df['State'][i] == 'MD':
             addr = str.lower(df['Street Address'][i])
             city = str.lower(df['City'][i])
             state = str.lower(df['State'][i])
@@ -105,7 +106,7 @@ def members():
         hospital_data.append(hospital)
 
     # Create a new dictionary with the hospital data
-    output_data = {"hospital data": hospital_data}
+    output_data = {"hospital": hospital_data}
 
     return output_data
 if __name__ == "__main__":
