@@ -17,10 +17,14 @@ def members():
     df = pd.read_csv('Hospital_Data.csv')
     df1 = pd.read_csv('Discharge_Data.csv')
     #cleaning first dataset
+    
+    s1=input("enter state 1")
+    s2 = input("enter state 2")
+    s3= input("enter state 3")
     discharge_to_hos = []
     curr = -1
     for i in df1.index:
-        if df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'VA' :#or df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'DC' or df1['Rndrng_Prvdr_State_Abrvtn'][i] == 'MD':
+        if df1['Rndrng_Prvdr_State_Abrvtn'][i] == s1 or df1['Rndrng_Prvdr_State_Abrvtn'][i] == s2 or df1['Rndrng_Prvdr_State_Abrvtn'][i] == s3:
             if i != 0 and (df1['Rndrng_Prvdr_Org_Name'][i-1] == df1['Rndrng_Prvdr_Org_Name'][i]):
                 discharge_to_hos[curr][1] = discharge_to_hos[curr][1] + \
                     df1["Tot_Dschrgs"][i]
