@@ -9,4 +9,4 @@ into one condensed Panda Database of relevant data
 • Created an algorithm that creates a prediction and calculates the distance away a hospital is from a user utilizing
 python libraries and medical industry standard formulas, was able to improve performance by only displaying
 hospital information within a 50 mile radius of user
-• Run time: 58.67 seconds to perform all actions
+• Run time: 00:01.58 seconds to perform all actions
